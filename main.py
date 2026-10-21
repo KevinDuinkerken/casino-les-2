@@ -10,7 +10,7 @@ name = input("Wat is je voor- en achternaam: ").title()
 
 birthdate = input("Wat is je geboortedatum? Vul dit in als dd-mm-yyyy: ")
 birth_day, birth_month, birth_year = birthdate.split("-")
-if date.today().year - int(birth_year) < 18:
+if date.today().year - int(birth_year) < MIN_AGE:
     print("Sorry je bent helaas nog niet oud genoeg, kom terug als je dat wel bent.")
     exit(1)
 
@@ -51,7 +51,6 @@ Kies één van de volgende opties:
 0. Stop
 """)
 
-spin = random.randint(1,36)
 color = "onbekend"
 odd_even = "onbekend"
 
@@ -66,6 +65,7 @@ while True:
             continue
         else:
             balance -= stake
+            spin = random.randint(0, 36)
             if spin == 0:
                 color = "groen"
                 odd_even = "geen"
@@ -85,6 +85,7 @@ while True:
                         color = "zwart"
                         odd_even = "oneven"
     else:
+        print("Deze keuze is helaas niet geldig.")
         continue
 
     if choice == 1 and color == "rood":
@@ -103,15 +104,11 @@ while True:
 De bal eindigde op nummer {spin} ({color}) 
 Helaas je hebt verloren, je nieuwe saldo is: €{balance:.2f}.
 """)
-    elif win:
+    else:
         balance += 2 * stake
         print(f"""
 De bal eindigde op nummer {spin} ({color})
 Je wint €{stake:.2f} en je nieuwe saldo is: €{balance:.2f}
 """)
-
-    else:
-        print(f"Deze keuze is helaas niet geldig.")
-        continue
 
 print(f"Je verlaat het casino met €{balance:.2f}, tot de volgende keer!")
